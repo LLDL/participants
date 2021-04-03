@@ -1,0 +1,129 @@
+{% extends "participant_app/nav.html" %}
+{% block extraHead %}
+    <title>Add Child - participant_app</title>
+    {% load static %}
+    <script src="{% static 'js/child.js' %}"></script>
+    <script src="{% static 'js/date_warning.js' %}"></script>
+    {{ addChildForm.media.css }}
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>New Child</h1>
+    <form method="post" class="noBottomMargin">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Personal Info
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ child_form.id|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{ addChildForm.management_form|crispy }}
+                                {{addChildForm.family|as_crispy_field}}
+                                <small id="familyHelp" class="form-text text-muted">If their family already exists in the database, select it here.</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ child_form.given_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ child_form.preferred_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ child_form.surname|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ child_form.gender|as_crispy_field}}
+                                
+                                <datalist id="auto-genders">
+                                    <option value="male">
+                                    <option value="female">
+                                </datalist>
+                            </div>
+                            <div class="col-md-6">
+                                {{ child_form.was_full_term|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ child_form.birth_date|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ child_form.birth_weight|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ child_form.birth_height|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row vertical-align mb-2 mt-2">
+                            <div class="col-md-6">
+                                {{ child_form.hereditary_audio_problems|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{ child_form.hereditary_language_pathologies|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                        
+                            <div class="col-lg-4">
+                                {{ child_form.hx_repeated_ear_infection|as_crispy_field}}
+                            </div>
+                            <div class="col-lg-4">
+                                {{ child_form.personal_notes|as_crispy_field}}
+                            </div>
+                            <div class="col-lg-4">
+                                {{ child_form.health_notes|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% comment %} </div>
+        <div class="row"> {% endcomment %}
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Languages Exposed To
+                    </div>        
+                    {{ exposure_forms.management_form|crispy }}
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="exposure_table">
+                            <thead>
+                                <tr class="noTopBorder centeredCell">
+                                    <th>Language*</th>
+                                    <th>Exposure Percentage*</th>
+                                </tr>
+                            </thead>
+                            <tbody id="exposure_table">
+                                {% for exposure_form in exposure_forms %}
+                                    <tr>            
+                                        <td>{{exposure_form.lang|as_crispy_field}}</td>  
+                                        <td>{{exposure_form.percentage_exposure|as_crispy_field}}</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <th>Remaining Percentage</th>
+                                    <td><input id="sumExposure" name="sumExposure" class="textinput textInput form-control text-white" type="text" readonly="readonly" value="0" required="" tabindex="-1"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="btn-group"> 
+            <input type="submit" class="btn btn-outline-dark" name="save" value="Save">
+            <input type="submit" class="btn btn-outline-dark" name="save_add_another" value="Save & Add Another">
+        </div>
+    </form>
+    {{ addChildForm.media.js }}
+{% endblock %}

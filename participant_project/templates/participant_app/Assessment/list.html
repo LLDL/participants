@@ -1,0 +1,80 @@
+{% extends "participant_app/nav.html" %}
+{% block extraHead %}
+    <title>Assessment List - participant_app</title>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row">
+            
+        <div class="col-xl-12">
+            {% if assessments %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-12 mb-0 vert-center">
+                                    <span class="vert-center">All Assessments</span>
+                                    <a href="{% url 'add_assessment' %}" class="btn btn-outline-light float-right vert-center" role="button">Add Assessment</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="noTopBorder centeredCell">
+                                    <th>Name</th>
+                                    <th>Lab</th>
+                                    <th>Fields</th>
+                                    <th>Run Count</th>
+                                    <th>Actions</th>
+                                    {% comment %} <th>Update</th>
+                                    <th>Delete</th> {% endcomment %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for assessment in assessments %}
+                                    <tr class="centeredCell">
+                                        <td>
+                                            {{assessment.assessment_name}}
+                                        </td>
+                                        <td>{{assessment.lab}}</td>  
+                                        <td>
+                                            {% for fields in assessment_fields.items %}
+                                                {% if fields.0 == assessment.assessment_name %}
+                                                    {% for field in fields.1%} 
+                                                        {{field.field_name}} ({{field.type}})&nbsp&nbsp&nbsp&nbsp
+                                                    {% endfor %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for count in assessment_run_counts.items %}
+                                                {% if count.0 == assessment.assessment_name %}
+                                                    {{count.1}}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{% url 'assessment_detail' assessment_name=assessment.assessment_name %}"  class="noBottomMargin btn btn-outline-dark mb-1" role="button">Open</a>
+                                                <a href="{% url 'update_assessment' assessment_name=assessment.assessment_name %}"  class="noBottomMargin btn btn-outline-dark mb-1" role="button">Update</a>
+                                                <a href="{% url 'delete_assessment' assessment_name=assessment.assessment_name %}"  class="noBottomMargin btn btn-outline-danger mb-1" role="button">Delete</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                <div>
+                    <h2>No assessments available for your lab.</h2>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+        
+    
+{% endblock %}

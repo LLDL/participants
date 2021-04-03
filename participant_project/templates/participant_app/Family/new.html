@@ -1,0 +1,93 @@
+{% extends "participant_app/nav.html" %}
+{% load static %}
+{% block extraHead %}
+    <title>Add Family - participant_app</title>
+    {{ parent_forms.media.css }}
+    <script src="{% static 'js/family.js' %}"></script>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>New Family</h1>
+    <form method="post" class="noBottomMargin">
+    
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                Basic Info
+                            </div>
+                            <div class="card-body">
+                                {{family_form.id|as_crispy_field}}
+                                {{family_form.notes|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card mb-4">
+                            <div class="table-responsive">
+                                {{ parent_forms.management_form|crispy}}
+                                <table class="table table-hover">
+                                    <thead class="card-header">
+                                        <tr class="noTopBorder">
+                                            <td>
+                                                Parent(s)
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for parent_form in parent_forms %}
+                                            <tr>
+                                                <td>
+                                                    {{parent_form.parent|as_crispy_field}}
+                                                    {{parent_form.isPrimary|as_crispy_field}}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="table-responsive">
+                        {{ child_forms.management_form|crispy}}
+                        <table class="table table-hover">
+                            <thead class="card-header">
+                                <tr class="noTopBorder">
+                                    <td>
+                                        Child(ren)
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for child_form in child_forms %}
+                                    <tr>
+                                        <td>
+                                            {{child_form.child|as_crispy_field}}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="btn-group"> 
+            <input type="submit" class="btn btn-outline-dark" name="save" value="Save">
+            <input type="submit" class="btn btn-outline-dark" name="save_add_another" value="Save & Add Another">
+        </div>
+    </form>
+    {{ parent_forms.media.js}}
+{% endblock %}

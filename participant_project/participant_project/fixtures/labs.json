@@ -1,0 +1,16 @@
+[
+    {
+        "model": "participant_app.lab",
+        "pk": "LangDev",
+        "fields": {
+            "group": null
+        }
+    },
+    {
+        "model": "participant_app.lab",
+        "pk": "Phono",
+        "fields": {
+            "group": null
+        }
+    }
+]

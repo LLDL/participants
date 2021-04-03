@@ -1,0 +1,26 @@
+{% extends "participant_app/nav.html" %}
+{% block extraHead %}
+    <title>Add Language - participant_app</title>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form method="post">
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Add Musical Skill
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{form.skill|as_crispy_field}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group"> 
+            <input type="submit" class="btn btn-outline-dark" name="save" value="Save">
+            <input type="submit" class="btn btn-outline-dark" name="save_add_another" value="Save & Add Another">
+        </div>
+    </form>
+{% endblock %}

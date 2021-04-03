@@ -1,0 +1,141 @@
+{% extends "participant_app/nav.html" %}
+{% block extraHead %}
+    <title>View Assessment {{assessment.assessment_name}} - participant_app</title>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+    {% if canAccess %}
+        <div class="row">
+            <div class="col-md-8">
+                <h1>
+                    {{ assessment.assessment_name }} Assessment ({{assessment.lab}})
+                </h1>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group float-right"> 
+                
+                    <a href="{% url 'update_assessment' assessment_name=assessment.assessment_name %}" class="btn btn-outline-dark" role="button">Update</a>
+                    <a href="{% url 'delete_assessment' assessment_name=assessment.assessment_name %}" class="btn btn-outline-danger" role="button">Delete</a>
+                    {% comment %} <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#sensitive" aria-expanded="false" aria-controls="personalTable">
+                        Show Sensitive
+                </button> {% endcomment %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Fields
+                    </div>
+                    {% if assessment_fields.count > 0 %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="noTopBorder centeredCell">
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for assessment_field in assessment_fields %}
+                                        <tr class="centeredCell">
+                                            <td>{{assessment_field.field_name}}</td>
+                                            <td>{{assessment_field.type}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Runs
+                    </div>
+                    {% if assessment_runs.count > 0%}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="noTopBorder centeredCell">
+                                        <th>Participant</th>
+                                        <th>Date</th>
+                                        <th>Notes</th>
+                                        <th>Assessor</th>
+                                        <th>Results</th>
+                                        <th>Actions</th>
+                                        {% comment %} <th>Update</th>
+                                        <th>Delete</th> {% endcomment %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for run in assessment_runs %}
+                                        <tr class="centeredCell">
+                                            <td>
+                                                {% if run.participantAdult%}
+
+                                                    <a href="{% url 'adult_detail' adult_id=run.participantAdult.id %}" class="noBottomMargin btn btn-outline-dark mb-1" role="button">  
+
+                                                    {{run.participantAdult}}
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{% url 'child_detail' child_id=run.participantChild.id %}" class="btn btn-outline-dark mb-1" role="button">  
+                                                    {{run.participantChild}}
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{run.date}}</td>
+                                            <td>{{run.notes}}</td>
+                                            <td>{{run.assessor}}</td>
+                                            <td>
+                                                {% for part in all_scores.items %}
+                                                    {% if part.0 == run.id %}
+                                                        {% for field in part.1%}
+                                                            <b>{{field.assessment_field.field_name}}:</b> {{field.score}}<br>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                {%endfor%}
+                                            </td>    
+                    
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="{% url 'assessment_run_detail' assessment_run_id=run.id %}"  class="noBottomMargin btn btn-outline-dark mb-1" role="button">Open</a>
+                                                    {% comment %} <a href="{% url 'update_assessment_run' assessment_run_id=run.id %}"  class="noBottomMargin btn btn-outline-dark mb-1" role="button">Update</a> {% endcomment %}
+                                                    <a href="{% url 'delete_assessment_run' assessment_run_id=run.id %}"  class="noBottomMargin btn btn-outline-danger mb-1" role="button">Delete</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                    <div class="card-footer">
+                        <form method="get" id="assessment_run" action="{% url 'choose_assessment' %}" accept-charset="utf-8" class="noBottomMargin">
+                        <input id="chooseAssessmentField" name="chooseAssessmentField" value = "{{assessment.assessment_name}}" type="hidden">
+                        <div class="input-group">
+                            <select id="chooseParticipantField" name="chooseParticipantField" class="form-control">
+                                <option value="adult">New Adult Run</option>
+                                <option value="child">New Child Run</option>
+                            </select>
+                            <div class="input-group-append">
+                                <input type="submit" id="chooseAssessmentButton" class="btn btn-outline-dark" value="Add">
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div>
+            <h2>You are not authorized to access this assessment. Please contact the {{assessment.lab}} lab for access.</h2>
+        </div>
+    {% endif %}
+        
+    
+{% endblock %}

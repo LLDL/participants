@@ -1,0 +1,77 @@
+{% extends "participant_app/nav.html" %}
+{% load static %}
+{% block extraHead %}
+    <title>Update Experiment {{experiment_name}} - participant_app</title>
+    {{ experiment_form.media.css }}
+{% endblock %}
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Update Experiment {{experiment_name}}</h1>
+    
+    {% if canAccess %}
+        <form action="{% url 'update_experiment' experiment_name %}" method="post" class="noBottomMargin">
+            <div class="row">
+                {% csrf_token %}
+                <div class="col-xl-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            Basic Info
+                        </div>
+                        <div class="card-body">
+                            <div class="col-sm-12">
+                                {{ experiment_form.experiment_name|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{ experiment_form.lab|as_crispy_field}}
+                            </div>
+                            <div class="col-sm-12">
+                                {{ experiment_form.status|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-header">
+                            Sections
+                        </div>
+                        <div>
+                            {{ experiment_section_formset.management_form|crispy }}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Name*</th>
+                                            <th>Section Status*</th>
+                                            <th>Delete?</th>
+                                        </tr>
+                                        
+                                    </thead>
+                                    <tbody>
+                                        {% for experiment_section_form in experiment_section_formset %}
+                                            {{experiment_section_form.id}}
+                                            <tr>            
+                                                <td>{{experiment_section_form.experiment_section_name|as_crispy_field}}</td>  
+                                                <td>{{experiment_section_form.section_status|as_crispy_field}}</td> 
+                                                <td class="centered-checkbox-child">{{experiment_section_form.DELETE}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-outline-dark" value="Update Experiment Section Fields">
+            
+            {{ experiment_form.media.js }}
+        </form>
+    {% else %}
+        <div>
+            <h3>You are not authorized to access this experiment. Please contact the lab for access.</h3>
+        </div>
+    {% endif %}
+{% endblock %}

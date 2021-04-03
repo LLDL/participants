@@ -1,0 +1,186 @@
+{% load crispy_forms_tags %}
+
+<div class="card mb-4">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="mb-0">
+                    Adult # {{ adult.id }}
+                </h3>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group float-right"> 
+                    <button class="btn btn-outline-light" type="button" data-toggle="collapse" data-target=".sensitive{{adult.id}}" aria-expanded="false" aria-controls="personalTable">
+                        Expand/Collapse
+                    </button>
+                    <a href="{% url 'adult_detail' adult_id=adult.id %}" class="btn  btn-outline-light" role="button">Open</a>
+                    <a href="{% url 'update_adult' adult_id=adult.id %}" class="btn  btn-outline-light" role="button">Update</a>
+                    <a href="{% url 'delete_adult' adult_id=adult.id %}" class="btn btn-danger border-light" role="button">Delete</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        {% comment %} <div class="row">
+            <div class="col-lg-12">
+                <h4>Basic Details</h4>
+            </div>
+        </div> {% endcomment %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-0">
+                    <div class="card-header">
+                        Personal Info
+                    </div>
+                    <div>
+                        {% comment %} <h2>Personal Info</h2>         {% endcomment %}
+                        <div id="personalTable" class="table-responsive">
+                            <table class="table table-hover">
+                                <tr class="noTopBorder">
+                                    <th>Name:</td>
+                                    <td>
+                                        {{adult.given_name}} 
+                                        {% if adult.preferred_name %}
+                                            ({{adult.preferred_name}})
+                                        {% endif %}
+                                        {{adult.surname}}
+                                    </td>
+                                </tr> 
+                                <tr>
+                                        <th>Birth Date:</td>
+                                        <td>{{adult.birth_date}}</td>
+                                </tr> 
+                                <tr>
+                                    <th>Has Health/Personal Notes:</td>
+                                    <td>
+                                        {% if adult.health_notes or adult.personal_notes %}
+                                            Yes
+                                        {% else %}
+                                            No
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Gender:</td>
+                                        <td>{{adult.gender}}</td>
+                                </tr> 
+                                {% if adult.sfu_id %}
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>SFU ID:</td>
+                                        <td>{{adult.sfu_id}}</td>
+                                </tr>    
+                                {% endif %}
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Address:</td>
+                                        <td>{{adult.address}}</td>
+                                </tr>
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Years of Education:</td>
+                                        <td>{{adult.years_of_education}}</td>
+                                </tr>
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Phone:</td>
+                                        <td>{{adult.phone}}</td>
+                                </tr>
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Email:</td>
+                                        <td>{{adult.email}}</td>
+                                </tr>
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Contact Preference:</td>
+                                        <td>{{adult.get_contact_pref_display}}</td>
+                                </tr>    
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Preferred Phone Time:</td>
+                                        <td>{{adult.get_pref_phone_time_display}}</td>
+                                </tr> 
+                                {% if adult.health_notes %}
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Health Notes:</td>
+                                        <td>{{adult.health_notes}}</td>
+                                </tr>
+                                {% endif %}
+                                {% if adult.personal_notes %}
+                                <tr class="sensitive{{adult.id}} collapse">
+                                        <th>Personal Notes:</td>
+                                        <td>{{adult.personal_notes}}</td>
+                                </tr>
+                                {% endif %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                {% if speaksLanguages.count > 0 %}
+                    <div class="card mb-0">
+                        <div class="card-header">
+                            Languages
+                        </div>
+                        <div>
+                                {% comment %} <h2>Languages Spoken</h2> {% endcomment %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr  class="noTopBorder centeredCell">
+                                            <th>Language</th>
+                                            <th>Native</th>
+                                            <th>Dominance</th>
+                                            <th>Starting Age</th>
+                                            <th>Ending Age</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for speaksLanguage in speaksLanguages %}
+                                            <tr class="centeredCell">
+                                                <td>{{speaksLanguage.lang}}</td>
+                                                <td>{{speaksLanguage.is_native}}</td>
+                                                <td>{{speaksLanguage.proficiency}}</td>
+                                                <td>{{speaksLanguage.age_learning_started}}</td>
+                                                <td>{{speaksLanguage.age_learning_ended}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="mb-4 sensitive{{adult.id}} collapse">
+                </div>
+                {% if musical_exps.count > 0 %}
+                    <div class="card mb-4 sensitive{{adult.id}} collapse">
+                        <div class="card-header">
+                            Musical Experiences
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr  class="noTopBorder centeredCell">
+                                        <th>Musical Experience</th>
+                                        <th>Dominance</th>
+                                        <th>Starting Age</th>
+                                        <th>Ending Age</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    {% for musical_exp in musical_exps %}
+                                        <tr class="centeredCell">
+                                            <td>{{musical_exp.experience}}</td>
+                                            <td>{{musical_exp.proficiency}}</td>
+                                            <td>{{musical_exp.age_learning_started}}</td>
+                                            <td>{{musical_exp.age_learning_ended}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+</div>

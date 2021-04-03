@@ -1,0 +1,99 @@
+{% extends "participant_app/nav.html" %}
+
+{% load static %}
+{% block extraHead %}
+    <title>Add Assessment {{assessment_name}} Run - participant_app</title>
+    {{ assessment_run_form.media.css }}
+    
+    <script src="{% static 'js/date_warning.js' %}"></script>
+    <script src="{% static 'js/run_validation.js' %}"></script>
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h1>New {{assessment_name}} Run ({{participant_type|title}})</h1>
+    {% if assessment_run_form.non_field_errors %}
+        {% for err in assessment_run_form.non_field_errors %}
+            {{err}}
+        {% endfor%}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Basic Info
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {% if participant_type == "adult" %}
+                                    {{assessment_run_form.participantAdult|as_crispy_field}}
+                                {% elif participant_type == "child" %}
+                                    {{assessment_run_form.participantChild|as_crispy_field}}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-sm-12">
+                                {{assessment_run_form.date|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{assessment_run_form.assessor|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{assessment_run_form.notes|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Results
+                    </div>
+                    <div>
+                        {{ assessment_run_field_score_formset.management_form|crispy}}
+                        <datalist id="auto-passfail">
+                            <option value="pass">
+                            <option value="fail">
+                        </datalist>
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="result_table_ass">
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Type</th>
+                                        <th>Score</th>
+                                    </tr>
+                                    
+                                </thead>
+                                <tbody>
+                                    {% for field, score in field_score_pairs %}
+                                        <tr>            
+                                            <td>{{field.field_name}}</td>
+                                            <td class="type">{{field.type}}</td>
+                                            <td>{{score.score|as_crispy_field}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-group">
+            <input type="submit" class="btn btn-outline-dark" name="save" value="Save">
+            <input type="submit" class="btn btn-outline-dark" name="save_add_another" value="Save & Add Another">
+        </div>
+    </form>
+    {{ assessment_run_form.media.js }}
+{% endblock %}

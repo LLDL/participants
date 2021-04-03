@@ -1,0 +1,297 @@
+[
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Accordion",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Bagpipes",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Banjo",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Bass guitar",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Bassoon",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Berimbau",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Bongo",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Cello",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Clarinet",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Cor anglais",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Cornet",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Cymbal",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Didgeridoo",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Double bass",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Drum kit",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Euphonium",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Flute",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "French horn",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Glass harmonica",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Glockenspiel",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Gong",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Guitar",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Harmonica",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Harp",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Harpsichord",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Hammered dulcimer",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Hurdy gurdy",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Jew’s harp",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Kalimba",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Lute",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Lyre",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Mandolin",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Marimba",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Melodica",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Oboe",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Ocarina",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Octobass",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Organ",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Pan Pipes",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Pennywhistle",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Piano",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Piccolo",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Recorder",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Saxophone",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Sitar",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Synthesizer",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Tambourine",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Timpani",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Triangle",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Trombone",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Trumpet",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Theremin",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Tuba",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Ukulele",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Viola",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Violin",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Whamola",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Xylophone",
+        "fields": {}
+    },
+    {
+        "model": "participant_app.MusicalSkill",
+        "pk": "Zither",
+        "fields": {}
+    }
+]

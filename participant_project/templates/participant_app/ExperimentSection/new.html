@@ -1,0 +1,49 @@
+{% extends "participant_app/nav.html" %}
+{% load static %}
+{% block extraHead %}
+    <title>Add Experiment Sections to {{experiment.experiment_name}} - participant_app</title>
+    {{ fields.media.css }}
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Fields for Sections of '{{experiment.experiment_name}}'</h1>
+    <form method="post" class="noBottomMargin">
+    
+        {% csrf_token %}
+        {% for experiment_section in experiment_sections %}
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            {{experiment_section.experiment_section_name}}
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Field Name</th>
+                                    <th>Field Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for field in fields.items %}
+                                    {% if field.0 == experiment_section.id %}
+                                        {{field.1.management_form|crispy}}
+                                        {% for item in field.1 %}
+                                            <tr>
+                                                <td>{{item.field_name|as_crispy_field}}</td>
+                                                <td>{{item.type|as_crispy_field}}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>   
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <input type="submit" class="btn btn-outline-dark" value="Save">
+    </form>
+    {{ fields.media.js }}
+{% endblock %}

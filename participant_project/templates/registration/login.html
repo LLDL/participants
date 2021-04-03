@@ -1,0 +1,59 @@
+{% extends "registration/wrapper.html" %}
+{% block extraHead %}
+
+    <title>Login - participant_app</title>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <body class="login">
+    <div class="no-lr row h-100 ">
+      <div class="autoMargin mx-auto text-center">
+        {% load static %}
+        <img src="{% static 'sfu-logo.png' %}" alt="SFU Department of Linguistics Participant Database" class="img-fluid">
+        <h3 class="whiteText">Participant DB</h3><br>
+
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            {% if form.errors or form.next %}
+              <li class="list-group-item">
+                {% if form.errors %}
+                  Invalid username or password. Please try again.
+                {% endif %}
+                {% if next %}
+                  {% if user.is_authenticated %}
+                    Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.
+                  {% endif %}
+                {% endif %}
+              </li>
+            {% endif %}
+            <li class="list-group-item">
+              <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+
+                <div>
+                  {% comment %} <td>{{ form.username.label_tag }}</td> {% endcomment %}
+                  <td>{{ form.username|as_crispy_field }}</td>
+                </div>
+                <div class="mb-4">
+                  {% comment %} <td>{{ form.password.label_tag }}</td> {% endcomment %}
+                  <td>{{ form.password|as_crispy_field }}</td>
+                </div>
+
+                <div>
+                  <input type="submit" value="Login" class="btn btn-primary"/>
+                  <input type="hidden" name="next" value="{{ next }}" />
+                </div>
+              </form>
+            </li>
+            <li class="list-group-item">
+              {# Assumes you setup the password_reset view in your URLconf #}
+              <a href="{% url 'password_reset' %}">Password Reset</a>
+            </li>
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+{% endblock %}

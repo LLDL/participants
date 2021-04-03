@@ -1,0 +1,169 @@
+{% extends "participant_app/nav.html" %}
+{% block extraHead %}
+
+    <title>Add Adult - participant_app</title>
+    {% load static %}
+    {{ adult_form.media.css }}
+    <script src="{% static 'js/adult.js' %}"></script>
+    <script src="{% static 'js/date_warning.js' %}"></script>
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>New Adult</h1>
+    <form method="post" class="noBottomMargin">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Personal Info
+                    </div>
+                    <div class="card-body">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ adult_form.id|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ adult_form.sfu_id|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ addParentForm.management_form|crispy }}
+                                {{addParentForm.family|as_crispy_field}}
+                                <small id="familyHelp" class="form-text text-muted">If their family already exists in the database, select it here.</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ adult_form.given_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ adult_form.preferred_name|as_crispy_field}}
+                            </div>
+                            <div class="col-md-4">
+                                {{ adult_form.surname|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ adult_form.birth_date|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{ adult_form.gender|as_crispy_field}}
+                                <datalist id="auto-genders">
+                                    <option value="male">
+                                    <option value="female">
+                                </datalist>
+                            </div>
+                            <div class="col-md-3">
+                                {{ adult_form.years_of_education|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{ adult_form.address|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ adult_form.email|as_crispy_field}}
+                                <small id="emailHelp" class="form-text text-muted">At least one contact method (email or phone) is required</small>
+                            </div>
+                            <div class="col-md-3">
+                                {{ adult_form.phone|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{ adult_form.contact_pref|as_crispy_field}}
+                            </div>
+                            <div class="col-md-3">
+                                {{ adult_form.pref_phone_time|as_crispy_field}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ adult_form.personal_notes|as_crispy_field}}
+                            </div>
+                            <div class="col-md-6">
+                                {{ adult_form.health_notes|as_crispy_field}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Languages Spoken
+                    </div>
+                    {{ speaks_formset.management_form|crispy }}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="noTopBorder centeredCell">
+                                    <th>Language*</th>
+                                    <th>Proficiency*</th>
+                                    <th>Starting*</th>
+                                    <th>Ending</th>
+                                    <th>Native*</th>
+                                </tr>      
+                            </thead>
+                            <tbody>
+                                {% for speaks in speaks_formset %}
+                                    <tr>            
+                                        <td>{{speaks.lang|as_crispy_field}}</td>  
+                                        <td>{{speaks.proficiency|as_crispy_field}}</td>  
+                                        <td>{{speaks.age_learning_started|as_crispy_field}}</td>  
+                                        <td>{{speaks.age_learning_ended|as_crispy_field}}</td>  
+                                        <td class="centered-checkbox-child">{{speaks.is_native|as_crispy_field}}</td>  
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Musical Experience
+                    </div>
+                    <div>
+                        {{ musical_experience_formset.management_form|crispy }}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="noTopBorder centeredCell">
+                                        <th>Experience*</th>
+                                        <th>Dominance*</th>
+                                        <th>Starting Age*</th>
+                                        <th>Ending Age</th>
+                                    </tr>      
+                                </thead>
+                                <tbody>
+                                    {% for musical_experience in musical_experience_formset %}
+                                        <tr>            
+                                            <td>{{musical_experience.experience|as_crispy_field}}</td>  
+                                            <td>{{musical_experience.proficiency|as_crispy_field}}</td>  
+                                            <td>{{musical_experience.age_learning_started|as_crispy_field}}</td>  
+                                            <td>{{musical_experience.age_learning_ended|as_crispy_field}}</td>  
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    
+
+        <div class="btn-group">
+            <input type="submit" class="btn btn-outline-dark" name="save" value="Save">
+            <input type="submit" class="btn btn-outline-dark" name="save_add_another" value="Save & Add Another">
+        </div>
+    </form>
+    
+    {{ adult_form.media.js }}
+{% endblock %}
